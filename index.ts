@@ -1,6 +1,6 @@
 import { sequelize } from "./src/db";
 require("dotenv").config();
-const PORT = process.env.API_PORT;
+const PORT = process.env.API_PORT || 3001;
 import app from "./src/app";
 
 sequelize
