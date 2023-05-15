@@ -8,7 +8,7 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: "client-elto82.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
