@@ -1,16 +1,14 @@
 import { sequelize } from "./src/db";
 import config from "./lib/config";
-
-const port = config.port;
-const NAME = config.dbName;
 import app from "./src/app";
+
+const NAME = config.dbName;
+const port = parseInt(process.env.PORT, 10) || 3000;
 
 sequelize
   .sync({ force: false, logging: false })
   .then(() => {
     console.log("base de datos conectada! :D");
-    const port = parseInt(process.env.PORT, 10) || 3000;
-
     app.listen(port, async function () {
       console.log(`App is listening on port ${port}! name DB ${NAME}!`);
     });
