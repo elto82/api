@@ -1,7 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
 import config from "../lib/config";
 
-export const sequelize = new Sequelize(process.env.DATABASE_URL, {
+const dburl = config.databaseUrl;
+
+export const sequelize = new Sequelize(dburl, {
   dialect: "postgres",
   database: config.dbName,
   password: config.dbPassword,

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config = {
+  databaseUrl: process.env.DATABASE_URL,
   dbUser: process.env.DB_USER || "postgres",
   dbPassword: process.env.DB_PASSWORD || "123",
   dbHost: process.env.DB_HOST || "localhost",
