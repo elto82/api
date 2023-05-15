@@ -10,7 +10,7 @@ const config = {
   dbName: process.env.DB_NAME || "proyecto",
   dbPort: Number(process.env.DB_PORT) || "5000",
   dev: process.env.NODE_ENV !== "production",
-  port: process.env.API_PORT || "3001",
+  port: process.env.PORT || "3000",
   host: process.env.API_host || "localhost",
 };
 
