@@ -6,7 +6,7 @@ const NAME = config.dbName;
 const port = parseInt(process.env.PORT, 10) || 3000;
 
 sequelize
-  .sync({ force: true, logging: false })
+  .sync({ force: false, logging: false })
   .then(() => {
     console.log("base de datos conectada! :D");
     app.listen(port, async function () {
