@@ -44,11 +44,17 @@ const queryCreator = (operation, zone, maxPrice, type, situation): any => {
 };
 
 // HELPER GET //
-export const findProps = async function (operation, zone, maxPrice, propertyType, situation) {
+export const findProps = async function (
+  operation,
+  zone,
+  maxPrice,
+  propertyType,
+  situation
+) {
   const db = await Property.findAll({
     where: queryCreator(operation, zone, maxPrice, propertyType, situation),
 
-    attributes: ["id", "type", "address", "price", "situation", "operation", "pictures"],
+    //attributes: ["id", "type", "address", "price", "situation", "operation", "pictures"],
 
     order: [["id", "ASC"]],
   });
