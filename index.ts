@@ -9,7 +9,7 @@ const NAME = config.dbName;
 const port = parseInt(process.env.PORT, 10) || 3000;
 
 sequelize
-  .sync({ force: false, logging: false })
+  .sync({ force: true, logging: false })
   .then(async () => {
     console.log("base de datos conectada! :D");
     //cargar unos usuarios de broker para prueba
