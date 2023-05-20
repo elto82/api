@@ -11,17 +11,7 @@ const { Form } = sequelize.models;
 export const createOrder = async (req: Request, res: Response) => {
   const form = req.body;
 
-  // Verificar campos obligatorios
-  if (!form.dni || !form.title || !form.description || !form.unit_price) {
-    res
-      .status(400)
-      .json({ message: "Faltan campos obligatorios en el formulario" });
-    return;
-  }
-
   const findForm = await Form.findOne({ where: { dni: form.dni } });
-
-  console.log(findForm.dataValues); // Imprimir los valores de findForm en la consola
 
   mercadopago.configure({ access_token: config.accessToken });
 
@@ -29,11 +19,13 @@ export const createOrder = async (req: Request, res: Response) => {
     binary_mode: true,
     items: [
       {
+        //aca faltaria el tema del llamado del get de las prop pero falta el del id,
+        //una ves que se lo tengas lo tenes q llenar con la variable que le desiganas(prop)
+        //y poner prop.title
         id: form.dni,
         title: form.title,
         description: form.description,
-        picture_url:
-          "https://utan.edu.mx/blog/wp-content/uploads/2016/06/administracion.jpg",
+        picture_url: "https://utan.edu.mx/blog/wp-content/uploads/2016/06/administracion.jpg",
         quantity: 1 as number,
         currency_id: "ARS",
         unit_price: form.unit_price as number,
@@ -50,31 +42,26 @@ export const createOrder = async (req: Request, res: Response) => {
   mercadopago.preferences
     .create(preference)
     .then(async function (response) {
-      await Form.update(
-        {
-          preferenceIdMP: response.body.id,
-        },
-        {
-          where: { id: findForm.dataValues.id },
-        }
-      );
-
-      res.status(200).json({ global: response.body.id });
+      if (findForm) {
+        await Form.update(
+          {
+            preferenceIdMP: response.body.id,
+          },
+          {
+            where: { id: findForm.dataValues.id },
+          }
+        );
+      }
+      res.status(200).json({
+        global: response.body.id,
+      });
     })
     .catch((error) => {
-      if (error.response && error.response.status === 400) {
-        res
-          .status(400)
-          .json({ message: "Error en los campos de la solicitud" });
-      } else {
-        res
-          .status(500)
-          .json({ message: "Error al crear la preferencia de pago" });
-      }
+      res.status(500).json({ global: error.message });
     });
 };
 
-// Verificar pago y modificar tabla de form
+//verificar pago y modificar tabla de form
 export const getPayment = async (req: Request, res: Response) => {
   await Form.update(
     {
