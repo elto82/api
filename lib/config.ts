@@ -13,6 +13,8 @@ const config = {
   port: process.env.PORT || "3000",
   host: process.env.API_host || "localhost",
   accessToken: process.env.PROD_ACCESS_TOKEN || "",
+  urlSuccess: process.env.URL_SUCCESS || "",
+  urlFailure: process.env.URL_FAILURE || "",
 };
 
 export default config;
