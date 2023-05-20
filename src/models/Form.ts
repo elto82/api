@@ -36,7 +36,7 @@ export default class Form extends Model {
     autoIncrement: true,
     unique: true,
   })
-  id!: BigInteger;
+  id!: number;
 
   //Mercado  Pago
   @Column({
@@ -52,14 +52,14 @@ export default class Form extends Model {
   picture_url!: object;
 
   @Column({ type: DataType.INTEGER, allowNull: true })
-  unit_price!: BigInteger;
+  unit_price!: number;
 
   //Datos usuario
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  dni!: BigInteger;
+  @Column({ type: DataType.BIGINT, allowNull: false })
+  dni!: number;
 
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  tel!: BigInteger;
+  @Column({ type: DataType.BIGINT, allowNull: false })
+  tel!: number;
 
   //Tipo de propiedad
   @Column({
@@ -85,7 +85,7 @@ export default class Form extends Model {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  number!: BigInteger;
+  number!: number;
 
   @Column({
     type: DataType.STRING,
@@ -97,7 +97,7 @@ export default class Form extends Model {
     type: DataType.INTEGER,
     allowNull: true,
   })
-  floor!: BigInteger;
+  floor!: number;
 
   @Column({
     type: DataType.STRING,
@@ -132,7 +132,7 @@ export default class Form extends Model {
   // RELACIIONAR CON USER (USUARIO)
   @ForeignKey(() => User)
   @Column
-  userId!: BigInteger;
+  userId!: number;
 
   @BelongsTo(() => User)
   user!: User;
@@ -140,7 +140,7 @@ export default class Form extends Model {
   // RELACIONAR CON BROKER (EMPLEADO)
   @ForeignKey(() => Broker)
   @Column
-  brokerId!: BigInteger;
+  brokerId!: number;
 
   @BelongsTo(() => Broker)
   broker!: Broker;
