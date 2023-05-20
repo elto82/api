@@ -11,9 +11,17 @@ const { Form } = sequelize.models;
 export const createOrder = async (req: Request, res: Response) => {
   const form = req.body;
 
+  // Verificar campos obligatorios
+  if (!form.dni || !form.title || !form.description || !form.unit_price) {
+    res
+      .status(400)
+      .json({ message: "Faltan campos obligatorios en el formulario" });
+    return;
+  }
+
   const findForm = await Form.findOne({ where: { dni: form.dni } });
 
-  console.log(findForm.dataValues);
+  console.log(findForm.dataValues); // Imprimir los valores de findForm en la consola
 
   mercadopago.configure({ access_token: config.accessToken });
 
@@ -21,9 +29,6 @@ export const createOrder = async (req: Request, res: Response) => {
     binary_mode: true,
     items: [
       {
-        //aca faltaria el tema del llamado del get de las prop pero falta el del id,
-        //una ves que se lo tengas lo tenes q llenar con la variable que le desiganas(prop)
-        //y poner prop.title
         id: form.dni,
         title: form.title,
         description: form.description,
@@ -57,11 +62,19 @@ export const createOrder = async (req: Request, res: Response) => {
       res.status(200).json({ global: response.body.id });
     })
     .catch((error) => {
-      res.status(500).json({ global: error.message });
+      if (error.response && error.response.status === 400) {
+        res
+          .status(400)
+          .json({ message: "Error en los campos de la solicitud" });
+      } else {
+        res
+          .status(500)
+          .json({ message: "Error al crear la preferencia de pago" });
+      }
     });
 };
 
-//verificar pago y modificar tabla de form
+// Verificar pago y modificar tabla de form
 export const getPayment = async (req: Request, res: Response) => {
   await Form.update(
     {

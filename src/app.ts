@@ -15,7 +15,7 @@ app.use(
   })
 );
 app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ extended: true, limit: "50mb" })); //middleware
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
 app.use(morgan("dev"));
 
@@ -24,7 +24,6 @@ interface error {
   message: string;
 }
 app.use((err: error, req: Request, res: Response, next: NextFunction) => {
-  // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
   console.error(err);
@@ -32,4 +31,5 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use("/", routes);
+
 export default app;
