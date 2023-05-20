@@ -4,8 +4,9 @@ import {
   findUserRol,
   findUserByRolPersonType,
   findUserPerson_type,
+  findUserName,
   getUserSoloByEmail,
-  updatePasswordUser
+  updatePasswordUser,
 } from "./uHelper";
 import { sequelize } from "../../db";
 import exp from "constants";
@@ -20,7 +21,7 @@ const { User } = sequelize.models;
 export const getUser = async (req: Request, res: Response) => {
   //Tratamos errores por buenas practicas.
   try {
-    const { rol, person_type } = req.query;
+    const { rol, person_type, name } = req.query;
     //Si no hay rol, trae todos los usuarios.
     if (!rol && !person_type) {
       const users = await findUser(); //helper trae todas las props.
@@ -47,6 +48,12 @@ export const getUser = async (req: Request, res: Response) => {
       const userPerson_type = await findUserPerson_type(person_type as string);
       return res.status(200).json(userPerson_type);
     }
+
+    //Si hay un name me traigo ese usuario
+    if (name) {
+      const userName = await findUserName(name as string);
+      return res.status(200).json(userName);
+    }
   } catch (error) {
     return res.status(404).send({ error: error }); //enviar tipo de error
   }
@@ -58,15 +65,27 @@ export const postUser = async (req: Request, res: Response) => {
     const user = req.body;
 
     //validamos si los campos son nulos.
-    if (!user.rol || !user.email || !user.password || !user.person_type || !user.name) {
+    if (
+      !user.rol ||
+      !user.email ||
+      !user.password ||
+      !user.person_type ||
+      !user.name
+    ) {
       throw new Error("Campos incompletos, completar correctamente datos.");
     } else {
       //si los campos son correctos, creamos el usuario.
       await User.create(req.body);
 
       //ENVIAR EMAIL A USUARIO
-      const emailTemplate = user.rol === "Cliente" ? clientUserTemplate(user.name) : supplierUserTemplate(user.name);
-      let sendmail = await MailService(user.email, "Bienvenido - PropTech", emailTemplate.html
+      const emailTemplate =
+        user.rol === "Cliente"
+          ? clientUserTemplate(user.name)
+          : supplierUserTemplate(user.name);
+      let sendmail = await MailService(
+        user.email,
+        "Bienvenido - PropTech",
+        emailTemplate.html
       );
 
       res.send({ msj: "Usuario creado correctamente", user: req.body });
@@ -89,7 +108,6 @@ export const putUser = async (req: Request, res: Response) => {
   }
 };
 
-
 ////////////////////////////////////////////////////
 
 //GOOGLE!
@@ -98,7 +116,7 @@ export const googleAcces = async (req: Request, res: Response) => {
   const comparing = req.body;
   try {
     const response = await getUserSoloByEmail(comparing);
-    console.log("esto es comparing ==>", response);
+    //console.log("esto es comparing ==>", response);
     if (!response) return res.status(400).send("Error: password wrong");
     return res.status(200).json(response);
   } catch (error) {

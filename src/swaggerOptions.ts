@@ -8,7 +8,7 @@ export const options = {
     },
     servers: [
       {
-        url: "http://localhost:3001",
+        url: "https://api-proptech.up.railway.app/",
         description: "Local server for development",
       },
     ],

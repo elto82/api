@@ -36,9 +36,13 @@ export const putSignal = async function (id, situation) {
   let statusProperty = "";
 
   if (signal.dataValues.operation === "Venta") {
-    situation === "Aceptado" ? (statusProperty = "Vendido") : (statusProperty = "Disponible");
+    situation === "Aceptado"
+      ? (statusProperty = "Vendido")
+      : (statusProperty = "Disponible");
   } else if (signal.dataValues.operation === "Alquiler") {
-    situation === "Aceptado" ? (statusProperty = "Rentado") : (statusProperty = "Disponible");
+    situation === "Aceptado"
+      ? (statusProperty = "Rentado")
+      : (statusProperty = "Disponible");
   }
 
   const updateProperty = await Property.update(
@@ -51,17 +55,25 @@ export const putSignal = async function (id, situation) {
   );
 
   let user = await User.findOne({ where: { id: signal.dataValues.userId } });
-  let property = await Property.findOne({ where: { id: signal.dataValues.propertyId } });
+  let property = await Property.findOne({
+    where: { id: signal.dataValues.propertyId },
+  });
 
-  let operation = signal.dataValues.operation === "Venta" ? "Vender" : "Compar o Alquilar";
+  let operation =
+    signal.dataValues.operation === "Venta" ? "Vender" : "Compar o Alquilar";
 
   //ENVIAR EMAIL A USUARIO
-  const emailTemplate = updateSignalTemplate(user.dataValues.name, property, situation, operation);
+  const emailTemplate = updateSignalTemplate(
+    user.dataValues.name,
+    property,
+    situation,
+    operation
+  );
   let sendmail = await MailService(
-      user.dataValues.email, 
-      "Respuesta de solicitud de Propiedad - PropTech", 
-      emailTemplate.html
-    );
+    user.dataValues.email,
+    "Respuesta de solicitud de Propiedad - PropTech",
+    emailTemplate.html
+  );
 
   return updateSignal;
 };
@@ -72,7 +84,9 @@ export const searchOperationSignal = async function (operation) {
   const signals = await getAllSignals();
 
   // Filter Signals por Operación
-  const filteredSignals = signals.filter((signal) => signal.dataValues.operation === operation);
+  const filteredSignals = signals.filter(
+    (signal) => signal.dataValues.operation === operation
+  );
 
   return filteredSignals
     ? filteredSignals
@@ -85,7 +99,9 @@ export const searchSituationSignal = async function (situation) {
   const signals = await getAllSignals();
 
   // Filter Signals por Operación
-  const filteredSignals = signals.filter((signal) => signal.dataValues.situation === situation);
+  const filteredSignals = signals.filter(
+    (signal) => signal.dataValues.situation === situation
+  );
 
   return filteredSignals
     ? filteredSignals

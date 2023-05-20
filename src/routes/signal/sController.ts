@@ -57,12 +57,20 @@ export const postProp = async (req: Request, res: Response) => {
     );
 
     let user = await User.findOne({ where: { id: req.body.userId } });
-    let property = await Property.findOne({ where: { id: req.body.propertyId } });
+    let property = await Property.findOne({
+      where: { id: req.body.propertyId },
+    });
 
     //ENVIAR EMAIL A USUARIO
-    const emailTemplate = user.dataValues.rol === "Cliente" ? clientSignalTemplate(user.dataValues.name, property) : supplierSignalTemplate(user.dataValues.name, property);
+    const emailTemplate =
+      user.dataValues.rol === "Cliente"
+        ? clientSignalTemplate(user.dataValues.name, property)
+        : supplierSignalTemplate(user.dataValues.name, property);
 
-    let sendmail = await MailService(user.dataValues.email, "Registro de solicitud de Propiedad - PropTech", emailTemplate.html
+    let sendmail = await MailService(
+      user.dataValues.email,
+      "Registro de solicitud de Propiedad - PropTech",
+      emailTemplate.html
     );
 
     res.send({ msj: "Signal Creado correctamente" });

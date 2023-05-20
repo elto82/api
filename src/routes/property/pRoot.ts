@@ -22,4 +22,5 @@ router.post("/bulk", postPropBulk); //Ruta para llenar la BD con propiedades de 
 router.delete("/:id", deleteProp);
 
 router.put("/:id", putProp);
+
 export default router;
