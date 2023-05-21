@@ -1,6 +1,7 @@
 import { sequelize } from "./src/db";
 import config from "./lib/config";
 import app from "./src/app";
+import { fillDataBase } from "./src/routes/property/pHelper";
 
 import { countBroker } from "./jsonBrokerCorreo";
 
@@ -11,6 +12,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 sequelize
   .sync({ force: true, logging: false })
   .then(async () => {
+    fillDataBase();
     console.log("base de datos conectada! :D");
     //cargar unos usuarios de broker para prueba
     //await Broker.bulkCreate(countBroker);
