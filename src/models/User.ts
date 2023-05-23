@@ -29,10 +29,7 @@ export class User extends Model<User> {
   })
   rol!: string;
 
-  @Column({
-    allowNull: false,
-    unique: true,
-  })
+  @Column({ allowNull: false })
   email!: string;
 
   @Column({ allowNull: true })
