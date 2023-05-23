@@ -8,25 +8,11 @@ export const MailService = async (
   htmlTemplate: string
 ) => {
   let transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: true,
+    service: process.env.SMTP_SERVICE,
     auth: {
       user: process.env.SMTP_USERNAME,
       pass: process.env.SMTP_PASSWORD,
     },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
-
-  // Verifico conexión a servidor de correo
-  transporter.verify(function (error, success) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Servidor de correo conectado");
-    }
   });
 
   let sendmail = await transporter.sendMail({
