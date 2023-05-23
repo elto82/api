@@ -5,17 +5,20 @@ import {
   deleteBrokerHandler,
   getBrokersHandler,
   modifyBrokerHandler,
+  statisticsHandler,
 } from "./bHandler";
 const router = Router();
+
+router.get("/statistics", statisticsHandler);
+
+router.get("/", getBrokersHandler);
 
 router.get("/:id", getBrokerByIdHandler);
 
 router.post("/", createBrokerHandler);
 
-router.get("/", getBrokersHandler);
+router.put("/", modifyBrokerHandler);
 
 router.delete("/:id", deleteBrokerHandler);
-
-router.put("/", modifyBrokerHandler);
 
 export default router;
