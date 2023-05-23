@@ -11,6 +11,7 @@ import Form from "./Form";
 @Table({
   timestamps: false,
 })
+/////////////////
 export class User extends Model<User> {
   @Column({
     type: DataType.INTEGER,
