@@ -37,6 +37,8 @@ export const createOrder = async (req: Request, res: Response) => {
       failure: config.urlFailure,
       pending: "",
     } as PreferenceBackUrl,
+    notification_url:
+      "https://api-proptech.up.railway.app/mercadopago/webhooks",
     auto_return: "approved",
   };
 
@@ -92,6 +94,8 @@ export const createOrderSignal = async (req: Request, res: Response) => {
       failure: config.urlFailure,
       pending: "",
     } as PreferenceBackUrl,
+    notification_url:
+      "https://api-proptech.up.railway.app/mercadopago/webhooks",
     auto_return: "approved",
   };
 
@@ -134,4 +138,8 @@ export const getPayment = async (req: Request, res: Response) => {
       where: { preferenceId: req.body.preference_id },
     }
   );
+};
+
+export const postWebHooks = async (req: Request, res: Response) => {
+  return res.status(201).json({ message: "ok" });
 };
