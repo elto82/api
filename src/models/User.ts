@@ -8,10 +8,10 @@ import {
   HasMany,
 } from "sequelize-typescript";
 import Form from "./Form";
+import { Signal } from "./Signal";
 @Table({
   timestamps: false,
 })
-/////////////////
 export class User extends Model<User> {
   @Column({
     type: DataType.INTEGER,
@@ -61,23 +61,7 @@ export class User extends Model<User> {
   //Agrega todas las Operaciones del usuario (vender, rentar, tasar)
   @HasMany(() => Form)
   properties!: Form[];
+
+  @HasMany(() => Signal)
+  signals!: Signal[];
 }
-
-// //ejemplo:
-// @Table
-// export class User extends Model<User> {
-//  @Column
-//  name!: string;
-
-//  @Column
-//  lastName!: string;
-
-//  @CreatedAt
-//  @Column
-//  createdAt!: Date;
-
-//  @UpdatedAt
-//  @Column
-//  updatedAt!: Date;
-// }
-// @Column({//aca irian nuestros atributos}) Asi mismo, tambien dentro de la clase deberiamos generar nuestras relaciones! No en un archivo afuera, te invito a que leas la documentacion de sequelize-typescript para que veas como se hace! Es muy sencillo.

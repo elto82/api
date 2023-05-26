@@ -5,7 +5,7 @@ import { randomBytes } from "crypto";
 import resetPasswordTemplate from "../../templates/resetPasswordTemplate";
 import clientUserTemplate from "../../templates/clientUserTemplate";
 
-const { User } = sequelize.models;
+const { User, Signal, Form } = sequelize.models;
 
 // findUser
 export const findUser = async function () {
@@ -64,6 +64,7 @@ export const findUserName = async function (name: string) {
 //findByEmail
 export const findUserByEmail = async function (email: string) {
   const db = await User.findOne({
+    include: [Signal, Form],
     where: {
       email: email,
     },
