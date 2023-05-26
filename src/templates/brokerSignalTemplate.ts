@@ -1,4 +1,3 @@
-
 const brokerSignal = function (broker: string, user, property) {
   const html = `
   <!DOCTYPE html>
@@ -130,8 +129,11 @@ const brokerSignal = function (broker: string, user, property) {
                                        </div>
                                       <div class="menu-links">
                                          <a href="#" style="padding-top:5px;padding-bottom:5px;padding-left:15px;padding-right:15px;display:inline-block;color:#3f475e;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:13px;text-decoration:none;letter-spacing:2px;" target="_self">Local</a>
+
                                          <a href="#" style="padding-top:5px;padding-bottom:5px;padding-left:15px;padding-right:15px;display:inline-block;color:#3f475e;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:13px;text-decoration:none;letter-spacing:2px;" target="_self">Vivienda</a>
+
                                          <a href="#" style="padding-top:5px;padding-bottom:5px;padding-left:15px;padding-right:15px;display:inline-block;color:#3f475e;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:13px;text-decoration:none;letter-spacing:2px;" target="_self">Oficina</a>
+
                                          <a href="#" style="padding-top:5px;padding-bottom:5px;padding-left:15px;padding-right:15px;display:inline-block;color:#3f475e;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:13px;text-decoration:none;letter-spacing:2px;" target="_self">Industria</a>
                                       </div>
                                    </td>
@@ -154,7 +156,7 @@ const brokerSignal = function (broker: string, user, property) {
                         <td class="pad" style="padding-top:15px;">
                           <div style="font-family: sans-serif">
                               <div class="" style="font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; font-size: 12px; color: #2b2d49; line-height: 1.5;">
-                                  <p style="margin: 0; font-size: 11px; text-align: center; "><span style="font-size:15px;caret-color:#152a6d;"><strong>HAS TUS SUEÑOS UNA REALIZAD</strong></span></p>
+                                  <p style="margin: 0; font-size: 11px; text-align: center; "><span style="font-size:15px;caret-color:#152a6d;"><strong>HAS TUS SUEÑOS UNA REALIDAD</strong></span></p>
                                   <p style="margin: 0; font-size: 14px; text-align: center;"><span style="color:#152a6d;"><span style="caret-color:#152a6d;font-size:15px;"><span style="color:#a31731;">CON PROPTECH </span></p>
                               </div>
                           </div>
@@ -170,11 +172,12 @@ const brokerSignal = function (broker: string, user, property) {
                           </td>
                        </tr>
                     </table>
+
                      <br><br>
                      <table border="0" cellpadding="0" cellspacing="0" class="image_block block-2" role="presentation" width="100%">
                        <tr>
                           <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-                             <div align="center" class="alignment" style="line-height:10px"><a href="#" style="outline:none" tabindex="-1" target="_blank"><img class="big" src="https://static.tokkobroker.com/water_pics/61473490849556420478476952427662215243829091586321796539503166833583826460719.jpg" style="display: block; height: auto; border: 0; width: 576px; max-width: 100%;" width="576"/></a></div>
+                             <div align="center" class="alignment" style="line-height:10px"><a href="#" style="outline:none" tabindex="-1" target="_blank"><img class="big" src="${property.dataValues.pictures[0].img}" style="display: block; height: auto; border: 0; width: 576px; max-width: 100%;" width="576"/></a></div>
                           </td>
                        </tr>
                      </table>
@@ -182,6 +185,7 @@ const brokerSignal = function (broker: string, user, property) {
               </tr>
            </tbody>
         </table>
+
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="background-color: #f9ecdc; color: #000000; width: 640px;" width="640">
            <tbody>
               <tr>
@@ -193,8 +197,11 @@ const brokerSignal = function (broker: string, user, property) {
                              <div style="font-family: sans-serif">
                                 <div class="" style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #2b2d49; line-height: 1.2;">
                                     <p style="margin: 0; text-align: justify; font-size: 15px;">Hola <b>${broker},</b></p><br>
+
                                     <p style="margin: 0; text-align: justify; font-size: 15px; padding-top: 10px">Me pongo en contacto con usted para informarle que se ha registrado una nueva solicitud de una propiedad del rubro <b>${property.dataValues.type}</b> del cual es responsable. A continuación, le proporciono los detalles para que proceda a su revisión:<p>
+
                                     <p style="margin: 0; text-align: center; font-size: 15px; padding-top: 10px"><b>Datos de Propiedad</b><p>
+
                                     <ul>
                                        <li><b>TIPO VIVIENDA: ${property.dataValues.type}</b></li>
                                        <li><b>N° DORMITORIOS: ${property.dataValues.bedroom}</b></li>
@@ -209,14 +216,20 @@ const brokerSignal = function (broker: string, user, property) {
                                        <li><b>ANTIGUEDAD: ${property.dataValues.antiquity}</b></li>
                                        <li><b>DESCRIPCIÓN: ${property.dataValues.description}</b></li>
                                     </ul>
+
                                     <p style="margin: 0; text-align: center; font-size: 15px; padding-top: 10px"><b>Datos de Usuario</b><p>
+
                                     <ul>
                                        <li><b>NOMBRE: ${user.dataValues.name}</b></li>
                                        <li><b>EMAIL: ${user.dataValues.email}</b></li>
                                     </ul>
+
                                     <p style="margin: 0; text-align: justify; font-size: 15px; padding-top: 10px">Con la información proporcionada, le instamos a que tome esta actividad como una oportunidad para demostrar su profesionalismo y así poder fortalecer aún más su contribución a nuestro equipo. <b>Asegúrese de realizar el procedimiento y cumplir con los plazos establecidos.</b><p>
+
                                     <p style="margin: 0; text-align: justify; font-size: 15px; padding-top: 10px">Agradecemos su compromiso y dedicación a su trabajo. Confiamos en que su participación será de gran valor y que juntos lograremos el éxito en esta actividad.<p>
+
                                     <p style="margin: 0; text-align: justify; font-size: 15px; padding-top: 10px">Atentamente,<p>
+
                                     <p style="margin: 0; text-align: center; font-size: 15px; padding-top: 10px"><b>PropTech</b><p> <br><br>
                                 </div>
                              </div>
@@ -227,6 +240,7 @@ const brokerSignal = function (broker: string, user, property) {
               </tr>
            </tbody>
         </table>
+
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="background-color: #ffffff; color: #000000; width: 640px;" width="640">
            <tbody>
               <tr>
@@ -252,6 +266,7 @@ const brokerSignal = function (broker: string, user, property) {
               </tr>
            </tbody>
         </table>
+
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="background-color: #ffffff; color: #000000; width: 640px;" width="640">
            <tbody>
               <tr>
@@ -274,6 +289,7 @@ const brokerSignal = function (broker: string, user, property) {
               </tr>
            </tbody>
         </table>
+
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="background-color: #ffffff; color: #000000; width: 640px;" width="640">
            <tbody>
               <tr>
