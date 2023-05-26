@@ -10,12 +10,12 @@ const NAME = config.dbName;
 const port = parseInt(process.env.PORT, 10) || 3000;
 
 sequelize
-  .sync({ force: false, logging: false })
+  .sync({ force: true, logging: false })
   .then(async () => {
-    //fillDataBase();
+    fillDataBase();
     console.log("base de datos conectada! :D");
     //cargar unos usuarios de broker para prueba
-    //await Broker.bulkCreate(countBroker);
+    await Broker.bulkCreate(countBroker);
     app.listen(port, async function () {
       console.log(`App is listening on port ${port}! name DB ${NAME}!`);
     });
