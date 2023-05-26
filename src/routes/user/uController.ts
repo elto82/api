@@ -70,6 +70,12 @@ export const postUser = async (req: Request, res: Response) => {
   try {
     const user = req.body;
 
+    const findEmail = await findUserByEmail(user.email);
+    console.log("esto es findEmail ==>", findEmail);
+    if (findEmail) {
+      throw new Error("Este email ya esta registrado.");
+    }
+
     //validamos si los campos son nulos.
     if (!user.email || !user.name) {
       throw new Error("Campos incompletos, completar correctamente datos.");
