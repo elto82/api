@@ -71,7 +71,7 @@ export const postUser = async (req: Request, res: Response) => {
     const user = req.body;
 
     const findEmail = await findUserByEmail(user.email);
-    console.log("esto es findEmail ==>", findEmail);
+    //console.log("esto es findEmail ==>", findEmail);
     if (findEmail) {
       throw new Error("Este email ya esta registrado.");
     }
@@ -94,6 +94,7 @@ export const postUser = async (req: Request, res: Response) => {
       res.send({ msj: "Usuario creado correctamente", user: req.body });
     }
   } catch (error: any) {
+    console.log("esto es error ==>", error);
     res.status(404).send({ error: error.message });
   }
 };
