@@ -141,5 +141,8 @@ export const getPayment = async (req: Request, res: Response) => {
 };
 
 export const postWebHooks = async (req: Request, res: Response) => {
+  console.log(req.body);
+  res.sendStatus(200);
+
   return res.status(201).json({ message: "ok" });
 };
